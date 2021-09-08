@@ -8,12 +8,12 @@
 
 ### Details
 
-This demo focuses on a simple site selection use-case for commercial real estate.  Users can select from a pre-defined list of commercial
-real estate types such as retail, office, industrial or mixed-use. For each type a list of sites is presented for the user to select from.
-When a site is selected the preview map will zoom into the site to provide context about the location.  Selecting the action button for the site will
-start the geoenrichment process for that site.  A new panel is added showing details about the site, a map of the site, and various details
-retrieved from the geoenrichment service. The search area is based on the type of site and varies simple distances to walk and drive travel
-times. 
+This demo focuses on a simple site selection use-case for commercial real estate. Users can select from a pre-defined list of commercial
+real estate types such as retail, office, industrial or mixed-use. For each type a different list of sites is presented for the user to
+select from. When a site is selected the preview map will zoom to that site to provide context about the location. Selecting the action
+button for the site will start the geoenrichment process for that site. A new panel is added showing details about the site, a map of 
+the site, and various details retrieved from the geoenrichment service. The search area is based on the type of site and varies from 
+simple distances to walk and drive travel times. 
 
 ### GeoEnrichment
 

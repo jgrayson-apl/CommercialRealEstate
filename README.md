@@ -8,6 +8,15 @@
 
 ### Details
 
+This demo focuses on a simple site selection use-case for commercial real estate.  Users can select from a pre-defined list of commercial
+real estate types, such as retail, office, industrial or mixed-use. For each type a list of corresponding sites is presented for the user
+to select from.  When selected the preview map will zoom into the site to provide context about the location.  Selecting the action button
+for the site will start the geoenrichment process for that site.  A new panel is added showing details about the site, a map of the site,
+and various details retrieved from the geoenrichment service. The search area is based on the type of site and varies simple distances to
+walk and drive travel times. 
+
+### GeoEnrichment
+
 > This demo application uses the [GeoEnrichment Service](https://developers.arcgis.com/documentation/mapping-apis-and-services/demographics/services/geoenrichment-service/) from [ArcGIS Platform](https://developers.arcgis.com/documentation/mapping-apis-and-services/arcgis-platform/).
 
 GeoEnrichment is the process of enhancing existing data with additional location-based information about the people and places in a specific area.

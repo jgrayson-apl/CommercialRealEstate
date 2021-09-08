@@ -1,6 +1,12 @@
 # Commercial Real Estate
-## ArcGIS Platform GeoEnrichment Service for Commercial Real Estate Site Selection
 
+## Using the ArcGIS Platform GeoEnrichment Service for Commercial Real Estate Site Selection
+
+### Demo Web Application
+
+> Check out the demo [here](https://apl.bd.esri.com/CommercialRealEstate/index.html).
+
+### Details
 
 > This demo application uses the [GeoEnrichment Service](https://developers.arcgis.com/documentation/mapping-apis-and-services/demographics/services/geoenrichment-service/) from [ArcGIS Platform](https://developers.arcgis.com/documentation/mapping-apis-and-services/arcgis-platform/).
 
@@ -17,7 +23,9 @@ and provide an estimate of the likelihood of human settlement.
 > Learn more about [GeoEnrichment](https://www.esri.com/en-us/arcgis/products/arcgis-platform/services/geoenrichment), [Tapestry Segmentation](https://storymaps.arcgis.com/stories/1ff4e014a1b3444b871dc4c3d906d946), and [Real Estate](https://www.esri.com/en-us/industries/real-estate/overview) solution at Esri.
 
 
-#### For questions about the demo web application:
+### Contact
+
+For questions about the demo web application:
 
 > John Grayson | Prototype Specialist | Geo Experience Center\
 > Esri | 380 New York St | Redlands, CA 92373 | USA\

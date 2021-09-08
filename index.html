@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0 maximum-scale=1.0"/>
+    <link rel="icon" href="./assets/favicon.ico" sizes="32x32" type="image/vnd.microsoft.icon">
+    <title class="application-title"></title>
+    
+    <!-- CALCITE -->
+    <script src="https://unpkg.com/@esri/calcite-components@1.0.0-beta.63/dist/calcite/calcite.esm.js" type="module"></script>
+    <link href="https://unpkg.com/@esri/calcite-components@1.0.0-beta.63/dist/calcite/calcite.css" rel="stylesheet" type="text/css"/>
+    
+    <!-- ArcGIS REST JS -->
+    <script src="https://unpkg.com/@esri/arcgis-rest-request@3.0.0/dist/umd/request.umd.js"></script>
+    <script src="https://unpkg.com/@esri/arcgis-rest-auth@3.0.0/dist/umd/auth.umd.js"></script>
+    <script src="https://unpkg.com/@esri/arcgis-rest-demographics@3.0.0/dist/umd/demographics.umd.js"></script>
+    
+    <!-- ArcGIS API for JavaScript-->
+    <link href="https://js.arcgis.com/4.20/esri/themes/light/main.css" rel="stylesheet">
+    <script src="https://js.arcgis.com/4.20/"></script>
+    
+    <!-- APPLICATION -->
+    <link rel="stylesheet" type="text/css" href="./css/calcite-themes.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/application.css">
+    <script type="module" src="./js/Application.js"></script>
+  
+  </head>
+  <body class="calcite-theme-light app-theme">
+    <calcite-shell dir="ltr">
+      
+      <header class="content-row" slot="header">
+        <h2 class="application-title"></h2>
+        
+        <div class="content-row">
+          
+          <calcite-dropdown id="user-sign-in-dropdown" alignment="start" scale="m" width="auto" type="click" hidden>
+            <calcite-button id="user-status-btn" slot="dropdown-trigger" appearance="transparent" color="neutral" scale="m" icon-start="user" alignment="center" width="auto">
+              not signed in
+            </calcite-button>
+            <calcite-dropdown-item id="user-sign-in-item" scale="m" icon-start="sign-in">
+              Sign In
+            </calcite-dropdown-item>
+            <calcite-dropdown-item id="user-sign-out-item" scale="m" icon-start="sign-out" hidden>
+              Sign Out
+            </calcite-dropdown-item>
+          </calcite-dropdown>
+          
+          <calcite-action-bar class="content-row" expand-disabled="true">
+            <calcite-action id="app-share-action" appearance="clear" scale="m" title="share current options..." text="share current options" icon="link" hidden></calcite-action>
+            <calcite-action id="app-details-action" appearance="clear" scale="m" title="app details..." text="app details" icon="information"></calcite-action>
+          </calcite-action-bar>
+          
+          <calcite-alert id="app-share-alert" icon="" auto-dismiss="" auto-dismiss-duration="medium" scale="m" color="green" aria-hidden="true" role="alert">
+            <div slot="message">
+              Shareable link has been copied to the clipboard.
+            </div>
+            <calcite-link id="app-share-link" slot="link" href="#" target="_blank" role="link" title="open in new tab">
+              open in new tab
+            </calcite-link>
+          </calcite-alert>
+        
+        </div>
+      </header>
+      
+      <!-- LEFT -->
+      <calcite-shell-panel slot="primary-panel" position="start" width-scale="m" collapsed="false">
+        <calcite-action-bar id="side-panel-action-bar" slot="action-bar">
+          <calcite-action text="Candidate Sites" title="GeoEnrich candidate sites..." icon="map-pin" class="toggle-action" data-toggle="location-panel" active="true"></calcite-action>
+        </calcite-action-bar>
+        
+        <calcite-panel id="candidate-sites-panel" class="toggle-panel" data-toggle="location-panel" heading="Candidate Sites">
+  
+          <div slot="header-actions-end">
+            <calcite-action id="can-add-site-action" appearance="clear" text="-- of --" text-enabled="true"></calcite-action>
+          </div>
+          <div slot="header-actions-end">
+            <calcite-action icon="chevrons-left" title="toggle panel" class="toggle-close" data-toggle="location-panel"></calcite-action>
+          </div>
+  
+          <div id="location-map-container"></div>
+          
+          <div class="content-col content-static padding-s">
+            
+            <calcite-radio-group id="site-type-options" appearance="solid" scale="s" width="full" role="radiogroup">
+              <calcite-radio-group-item value="Retail" checked="" aria-checked="true" role="radio" icon="shopping-cart" icon-position="start">
+                <div class="site-type-item">Retail</div>
+              </calcite-radio-group-item>
+              <calcite-radio-group-item value="Office" aria-checked="false" role="radio" icon="floor-plan" icon-position="start">
+                <div class="site-type-item">Office</div>
+              </calcite-radio-group-item>
+              <calcite-radio-group-item value="Industrial" aria-checked="false" role="radio" icon="organization" icon-position="start">
+                <div class="site-type-item">Industrial</div>
+              </calcite-radio-group-item>
+              <calcite-radio-group-item value="Mixed-Use" aria-checked="false" role="radio" icon="add-in" icon-position="start">
+                <div class="site-type-item">Mixed-Use</div>
+              </calcite-radio-group-item>
+            </calcite-radio-group>
+          
+          </div>
+          <div class="content-col content-fill">
+            <calcite-value-list id="features-list" loading="true" role="menu"></calcite-value-list>
+          </div>
+        </calcite-panel>
+      
+      </calcite-shell-panel>
+      
+      <!-- CENTER -->
+      <calcite-shell-center-row position="start" slot="center-row">
+        <div id="view-containers"></div>
+      </calcite-shell-center-row>
+      
+      <!-- RIGHT -->
+      <calcite-shell-panel slot="contextual-panel" position="end" width-scale="m" collapsed="true">
+        <calcite-action-bar slot="action-bar" hidden>
+          <calcite-action text="Analysis" icon="analysis" class="toggle-action" data-toggle="analysis"></calcite-action>
+        </calcite-action-bar>
+        
+        <calcite-panel class="toggle-panel" data-toggle="analysis" hidden>
+          <div slot="header-content">Analysis</div>
+          <div slot="header-actions-end">
+            <calcite-action icon="x" title="close panel" class="toggle-close" data-toggle="analysis"></calcite-action>
+          </div>
+          <div id="analysis-container" class="panel-content">
+            analysis details
+          </div>
+          <calcite-block heading="Analysis" summary="analysis parameters and results" open="true">
+            <calcite-icon slot="icon" icon="analysis"></calcite-icon>
+            <calcite-block-section text="Parameters" toggle-display="button" status="invalid">
+              <div>analysis options</div>
+            </calcite-block-section>
+            <calcite-block-section text="Results" open="true">
+              <div>analysis results</div>
+            </calcite-block-section>
+          </calcite-block>
+        </calcite-panel>
+      
+      </calcite-shell-panel>
+      
+      <!-- APP DETAILS MODAL -->
+      <calcite-modal id="app-details-modal" color="blue" background-color="grey" scale="m" width="m" role="dialog" aria-labelledby="app-modal-title">
+        <h3 slot="header" id="app-modal-title" class="application-title"></h3>
+        <div slot="content" class="application-description">
+          <div class="panel-content">
+            This demo application uses the
+            <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/demographics/services/geoenrichment-service/" target="_blank">GeoEnrichment Service</calcite-link>
+            from
+            <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/arcgis-platform/" target="_blank">ArcGIS Platform.</calcite-link>
+          </div>
+          <div class="margin-l">
+            GeoEnrichment is the process of enhancing existing data with additional location-based information about the people and places in a specific area. The additional information can drive better understanding, analysis, and decision making. For example, you can submit a point or polygon to the GeoEnrichment service and retrieve demographics and other facts associated with the location and surrounding area.
+          </div>
+          <div class="margin-l">
+            The GeoEnrichment service uses a sophisticated data apportionment methodology to aggregate demographic information for rings and other polygons. For example, in the U.S. and Canada, data apportionment relies mostly on census block points. Block points are centroids derived from census block boundaries, the most detailed level of census tabulation available. They contain attributes for the actual count of people and households living in the associated block. For most other countries and regions settlement points are used for data apportionment. Settlement points are modeled by Esri and provide an estimate of the likelihood of human settlement.
+          </div>
+          <div class="panel-content">
+            Learn more about
+            <calcite-link href="https://www.esri.com/en-us/arcgis/products/arcgis-platform/services/geoenrichment" target="_blank">GeoEnrichment,</calcite-link>
+            <calcite-link href="https://storymaps.arcgis.com/stories/1ff4e014a1b3444b871dc4c3d906d946" target="_blank">Tapestry Segmentation,</calcite-link>
+            and
+            <calcite-link href="https://www.esri.com/en-us/industries/real-estate/overview" target="_blank">Real Estate</calcite-link>
+            solution at Esri.
+          </div>
+        </div>
+        <div slot="secondary" class="margin-m">
+          <calcite-label layout="inline">
+            <span>hide on startup</span>
+            <calcite-checkbox id="hide-startup-checkbox"></calcite-checkbox>
+          </calcite-label>
+        </div>
+        <calcite-button id="app-details-ok-btn" slot="primary" width="full" hidden>OK</calcite-button>
+      </calcite-modal>
+      
+      <!-- NOTICES ADN ALERTS -->
+      <calcite-notice id="app-notice" icon="" scale="m" width="auto" dismissible="" color="red">
+        <div slot="title"></div>
+        <div slot="message"></div>
+      </calcite-notice>
+    
+    </calcite-shell>
+    
+    <!-- LOADER -->
+    <calcite-loader id="app-loader" active="true" type="indeterminate" scale="l"></calcite-loader>
+    
+    <!-- FEATURE ITEM TEMPLATE -->
+    <template id="feature-item-template">
+      <calcite-value-list-item
+        class="list-item"
+        label=""
+        description=""
+        value="">
+        <calcite-action
+          class="list-item-action"
+          title="GeoEnrich this candidate site location..."
+          label=""
+          slot="actions-end"
+          appearance="clear"
+          scale="s"
+          icon="map-pin">
+        </calcite-action>
+      </calcite-value-list-item>
+    </template>
+    
+    <template id="geoenriched-location-template">
+      <calcite-panel class="geoenriched-container">
+        <div class="geoenriched-container-header" slot="header-content">Candidate Site</div>
+        <calcite-action class="remove-btn" title="remove this candidate site..." slot="header-actions-end" appearance="clear" scale="s" icon="x"></calcite-action>
+        <div class="geoenriched-content">
+          <div class="site-container panel-content"></div>
+          <div class="view-container"></div>
+          <div class="stats-container panel-content"></div>
+        </div>
+      </calcite-panel>
+    </template>
+  
+  </body>
+</html>

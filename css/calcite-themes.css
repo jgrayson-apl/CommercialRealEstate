@@ -1,0 +1,137 @@
+:root {
+  --spacing-s: 0.2rem;
+  --spacing-m: 0.5rem;
+  --spacing-l: 0.8rem;
+}
+
+/*.calcite-theme-light {
+  --calcite-ui-brand: #007ac2;
+  --calcite-ui-brand-hover: #00619B;
+  --calcite-ui-brand-press: #004874;
+  --calcite-ui-background: #f8f8f8;
+  --calcite-ui-foreground-1: #ffffff;
+  --calcite-ui-foreground-2: #f3f3f3;
+  --calcite-ui-foreground-3: #eaeaea;
+  --calcite-ui-text-1: #151515;
+  --calcite-ui-text-2: #4a4a4a;
+  --calcite-ui-text-3: #6a6a6a;
+  --calcite-ui-text-inverse: #FFFFFF;
+  --calcite-ui-text-link: #00619b;
+  --calcite-ui-border-1: #cacaca;
+  --calcite-ui-border-2: #dfdfdf;
+  --calcite-ui-border-3: #eaeaea;
+  --calcite-ui-border-input: #949494;
+  --calcite-ui-info: #00619b;
+  --calcite-ui-success: #35ac46;
+  --calcite-ui-warning: #edd317;
+  --calcite-ui-danger: #D83020;
+  --calcite-ui-danger-hover: #A82B1E;
+  --calcite-ui-danger-press: #7C1D13;
+  --calcite-theme-name: "light";
+  --calcite-ui-foreground-current: #c7eaff;
+  --calcite-ui-inverse: #404040;
+  --calcite-ui-inverse-hover: #4a4a4a;
+  --calcite-ui-inverse-press: #353535;
+  --calcite-alert-dismiss-progress-background: rgba(255, 255, 255, 0.8);
+  --calcite-button-transparent-hover: rgba(0, 0, 0, 0.05);
+  --calcite-button-transparent-press: rgba(0, 0, 0, 0.08);
+  --calcite-input-message-floating-background: rgba(255, 255, 255, 0.96);
+  --calcite-link-blue-underline: rgba(0, 97, 155, 0.4);
+  --calcite-scrim-background: rgba(255, 255, 255, 0.75)
+}*/
+
+/*.calcite-theme-dark {
+  --calcite-ui-brand: #009AF2;
+  --calcite-ui-brand-hover: #007AC2;
+  --calcite-ui-brand-press: #00619B;
+  --calcite-ui-background: #353535;
+  --calcite-ui-foreground-1: #2b2b2b;
+  --calcite-ui-foreground-2: #202020;
+  --calcite-ui-foreground-3: #151515;
+  --calcite-ui-text-1: #ffffff;
+  --calcite-ui-text-2: #bfbfbf;
+  --calcite-ui-text-3: #9f9f9f;
+  --calcite-ui-text-inverse: #151515;
+  --calcite-ui-text-link: #00A0FF;
+  --calcite-ui-border-1: #4a4a4a;
+  --calcite-ui-border-2: #404040;
+  --calcite-ui-border-3: #353535;
+  --calcite-ui-border-input: #757575;
+  --calcite-ui-info: #00A0FF;
+  --calcite-ui-success: #36DA43;
+  --calcite-ui-warning: #FFC900;
+  --calcite-ui-danger: #FE583E;
+  --calcite-ui-danger-hover: #FF0015;
+  --calcite-ui-danger-press: #D90012;
+  --calcite-theme-name: "dark";
+  --calcite-ui-foreground-current: #214155;
+  --calcite-ui-inverse: #404040;
+  --calcite-ui-inverse-hover: #353535;
+  --calcite-ui-inverse-press: #4a4a4a;
+  --calcite-alert-dismiss-progress-background: rgba(43, 43, 43, 0.8);
+  --calcite-button-transparent-hover: rgba(255, 255, 255, 0.05);
+  --calcite-button-transparent-press: rgba(255, 255, 255, 0.08);
+  --calcite-input-message-floating-background: rgba(43, 43, 43, 0.96);
+  --calcite-link-blue-underline: rgba(0, 160, 255, 0.4);
+  --calcite-scrim-background: rgba(0, 0, 0, 0.75)
+}*/
+
+.font-size-s {
+  font-size: 9pt;
+}
+
+.font-size-m {
+  font-size: 11pt;
+}
+
+.font-size-l {
+  font-size: 13pt;
+}
+
+.padding-s {
+  padding: var(--spacing-s);
+}
+
+.padding-m {
+  padding: var(--spacing-m);
+}
+
+.padding-l {
+  padding: var(--spacing-l);
+}
+
+.margin-s {
+  margin: var(--spacing-s);
+}
+
+.margin-m {
+  margin: var(--spacing-m);
+}
+
+.margin-l {
+  margin: var(--spacing-l);
+}
+
+.leader-s {
+  margin-top: var(--spacing-s);
+}
+
+.leader-m {
+  margin-top: var(--spacing-m);
+}
+
+.leader-l {
+  margin-top: var(--spacing-l);
+}
+
+.trailer-s {
+  margin-bottom: var(--spacing-s);
+}
+
+.trailer-m {
+  margin-bottom: var(--spacing-m);
+}
+
+.trailer-l {
+  margin-bottom: var(--spacing-l);
+}

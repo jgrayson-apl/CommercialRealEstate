@@ -1,0 +1,157 @@
+ /**
+   *
+   * @param view
+   */
+  displayFeatureList(view) {
+    if (view) {
+      require(['esri/core/promiseUtils', 'esri/widgets/Search'], (promiseUtils, Search) => {
+
+        // FEATURE LAYER //
+        const featureLayer = view.map.layers.find(layer => { return (layer.title === 'USA Urban Areas'); });
+        if (featureLayer) {
+          featureLayer.load().then(() => {
+            featureLayer.set({outFields: ["*"]});
+
+            // SEARCH //
+            const search = new Search({
+              container: 'search-container',
+              view: view,
+              searchTerm: 'New York',
+              popupEnabled: false,
+              resultGraphicEnabled: false,
+              sources: [
+                {
+                  layer: featureLayer,
+                  name: "Urban Areas",
+                  placeholder: "Find urban area...",
+                  exactMatch: false,
+                  searchFields: ["NAME"],
+                  outFields: ['NAME'],
+                  displayField: "NAME"
+                }
+              ]
+            });
+            search.on('select-result', ({result, source, sourceIndex}) => {
+
+              /*
+               feature.attributes
+               Addr_type: "Locality"
+               City: "New York"
+               Match_addr: "New York"
+               */
+
+              this._evented.emit("location-selected", {
+                siteFeature: result.feature
+              });
+
+            });
+
+            view.whenLayerView(featureLayer).then(featureLayerView => {
+
+              let _featureHighlight = null;
+              const featureSelected = (featureOID) => {
+                _featureHighlight && _featureHighlight.remove();
+                if (featureOID) {
+                  _featureHighlight = featureLayerView.highlight(featureOID);
+                  const feature = featuresByOID.get(featureOID);
+                  view.goTo({target: feature});
+                }
+              };
+
+              // VIEW CLICK //
+              view.on('click', clickEvt => {
+                view.hitTest(clickEvt, {include: [featureLayer]}).then(hitResponse => {
+                  if (hitResponse.results.length) {
+                    const featureOID = hitResponse.results[0].graphic.getObjectId();
+                    featureSelected(featureOID);
+                  } else {
+                    featureSelected();
+                  }
+                });
+              });
+
+              // LIST OF FEATURES //
+              const featuresList = document.getElementById('features-list');
+              featuresList.addEventListener('calciteListChange', (evt) => {
+                const featureOID = evt.detail.size ? Number(Array.from(evt.detail.keys())[0]) : null;
+                featureSelected(featureOID);
+              });
+
+              // UPDATE LIST SELECTION //
+              const updateListSelection = (featureOID) => {
+                if (featureOID) {
+                  const featureItem = featuresList.querySelector(`calcite-pick-list-item[value="${ featureOID }"]`)
+                  featureItem && (featureItem.selected = true);
+                } else {
+                  featuresList.getSelectedItems().then((selectedItems) => {
+                    selectedItems.forEach(item => {
+                      item.selected = false;
+                    });
+                  });
+                }
+              };
+
+              let featuresByOID = new Map();
+              const updateFeaturesList = features => {
+                // FEATURES BY OID //
+                featuresByOID = features.reduce((list, feature) => {
+                  return list.set(feature.getObjectId(), feature);
+                }, new Map());
+
+                // features.map(feature => { createFeatureItemNodes(feature, featuresList); });
+                featuresList.append(...features.map(createFeatureItemNodes));
+
+              };
+
+              // CLEAR LIST SELECTION //
+              const clearListSelectionAction = document.getElementById('clear-list-selection-action');
+              clearListSelectionAction.addEventListener('click', () => {
+                updateListSelection();
+              });
+
+              // FEATURE ITEM TEMPLATE //
+              const featureItemTemplate = document.getElementById('feature-item-template');
+              // CREATE ITEM NODE //
+              const createFeatureItemNodes = (feature) => {
+                const templateNode = featureItemTemplate.content.cloneNode(true);
+                const itemNode = templateNode.querySelector('calcite-pick-list-item');
+                itemNode.setAttribute('label', feature.attributes.NAME);
+                itemNode.setAttribute('description', `Residents: ${ feature.attributes.POP2010.toLocaleString() } | Housing Units: ${ feature.attributes.HSE_UNITS.toLocaleString() }`);
+                itemNode.setAttribute('value', feature.getObjectId());
+                return itemNode;
+              };
+
+              // GET FEATURES BASED ON FILTER //
+              const getFeatures = (filter) => {
+                return promiseUtils.create((resolve, reject) => {
+                  const featuresQuery = featureLayer.createQuery();
+                  featuresQuery.set({
+                    where: filter || '1=1',
+                    returnGeometry: true,
+                    outFields: ['OBJECTID', 'NAME', 'POP2010', 'POP10_SQMI', 'HSE_UNITS'],
+                    orderByFields: ['POP2010 DESC']
+                  });
+                  featureLayer.queryFeatures(featuresQuery).then(featuresFS => {
+                    resolve(featuresFS.features);
+                  }).catch(reject);
+                });
+              };
+
+              // GET ALL FEATURES //
+              getFeatures().then((features) => {
+                updateFeaturesList(features);
+                featuresList.loading = false;
+              });
+
+            });
+          });
+        } else {
+          this.displayAlert({
+            title: `Can't Find Layer`,
+            message: `The layer 'USA Urban Areas' can't be found in this map.`
+          });
+        }
+      });
+
+    }
+  }

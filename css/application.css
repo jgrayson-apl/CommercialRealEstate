@@ -1,0 +1,313 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.app-theme {
+  --calcite-ui-brand: #e38b4f;
+  --calcite-ui-brand-hover: #ffb380;
+  --calcite-ui-brand-press: #995d36;
+}
+
+.content-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content-center {
+  display: flex;
+  flex-direction: row;
+  justify-self: center;
+  align-self: center;
+}
+
+.content-static {
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+.content-fill {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.panel-content {
+  margin: 5px;
+  padding: 10px;
+  color: var(--calcite-ui-text-2);
+  background-color: var(--calcite-ui-foreground-1);
+  border: solid 1px var(--calcite-ui-border-1);
+}
+
+.panel-no-border {
+  border: none;
+}
+
+.panel-no-margin {
+  margin: 0;
+}
+
+.panel-no-padding {
+  padding: 0;
+}
+
+
+.toggle-panel[hidden] {
+  display: none;
+}
+
+header[slot="header"] {
+  z-index: 99;
+  padding: 0 1rem 0 1rem;
+}
+
+
+calcite-loader#app-loader {
+  z-index: 1000;
+  top: calc(50vh - 112px) !important;
+}
+
+.esri-ui-corner calcite-loader {
+  padding: 0 !important;
+}
+
+.application-title {
+  color: var(--calcite-ui-brand);
+}
+
+
+calcite-panel > div[slot="header-actions-end"] {
+  display: inline-flex;
+}
+
+calcite-notice {
+  z-index: 101;
+}
+
+.calcite-link {
+
+}
+
+
+#search-container {
+  width: 100%;
+  padding: 10px;
+}
+
+#location-map-container {
+  position: sticky;
+  min-height: 250px;
+  top: 0;
+  z-index: 11;
+}
+
+#features-list {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.list-item[disabled] {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.site-type-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#view-containers {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  overflow-y: auto;
+  background-blend-mode: luminosity;
+  background: #e8e4e1 url(../assets/real-estate-banner-illustration.png) no-repeat center center;
+  background-size: 40% 40%;
+}
+
+#view-containers:empty {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 8%;
+  font-size: 21pt;
+  font-style: italic;
+  color: var(--calcite-ui-brand-press);
+  /*text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);*/
+}
+
+#view-containers:empty:after {
+  content: 'Select mulitple candidate sites to compare geoenriched informaiton...';
+}
+
+.geoenriched-container {
+  flex-basis: calc((100vw - 64px) / 5);
+  /*width: calc((100vw - 64px) / 5);*/
+  height: 100%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 0;
+  min-width: 0;
+}
+
+.remove-btn {
+  border-right: solid 1px #dfdfdf;
+}
+
+.geoenriched-content {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.site-container {
+  height: 100px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.view-container {
+  pointer-events: none;
+  margin: 2px 8px 2px 8px;
+  height: 225px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.stats-container {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+
+#view-updating {
+  pointer-events: none;
+  position: absolute;
+  padding: 0;
+  bottom: 90px;
+  right: 30px;
+}
+
+.geoenriched-container-header {
+  color: var(--calcite-ui-brand);
+  font-weight: 600;
+}
+
+
+.data-title {
+  font-size: 12pt;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.data-title calcite-icon {
+  margin-right: 5px;
+}
+
+.data-group {
+  padding-left: 5px;
+}
+
+.data-group-label {
+  font-size: 11pt;
+  text-decoration: underline;
+  margin-top: 8px;
+}
+
+.data-group-label:first-of-type {
+  margin-top: 0;
+}
+
+.data-row {
+  cursor: pointer;
+  font-size: 10pt;
+  padding-left: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.data-row:hover {
+  background-color: #ededed;
+}
+
+.data-value {
+  text-align: right;
+  display: inline-flex;
+  justify-items: center;
+}
+
+.change-icon {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+calcite-icon[icon="arrow-double-horizontal"] {
+  color: dodgerblue;
+}
+
+calcite-icon[icon="arrow-up"] {
+  color: darkgreen;
+}
+
+calcite-icon[icon="arrow-down"] {
+  color: darkred;
+}
+
+#can-add-site-action {
+  border: solid 2px transparent;
+}
+
+#can-add-site-action[icon="exclamation-mark-triangle"] {
+  border-color: red;
+}

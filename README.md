@@ -32,7 +32,7 @@ boundaries, the most detailed level of census tabulation available. They contain
 the associated block. For most other countries and regions settlement points are used for data apportionment. Settlement points are modeled by Esri
 and provide an estimate of the likelihood of human settlement.
 
-> Developers can see how the GeoEnrichment Service is used in this demo [here](https://github.com/jgrayson-apl/CommercialRealEstate/blob/master/js/GeoenrichmentUtils.js#L70) using the [ArcGIS REST JS](https://developers.arcgis.com/arcgis-rest-js/) api.
+> Developers can see how the GeoEnrichment Service is used in this demo [here](https://github.com/jgrayson-apl/CommercialRealEstate/blob/master/js/GeoenrichmentUtils.js#L70) using the [ArcGIS REST JS](https://developers.arcgis.com/arcgis-rest-js/) API.
 
 > Learn more about [GeoEnrichment](https://www.esri.com/en-us/arcgis/products/arcgis-platform/services/geoenrichment), [Tapestry Segmentation](https://storymaps.arcgis.com/stories/1ff4e014a1b3444b871dc4c3d906d946), and [Real Estate](https://www.esri.com/en-us/industries/real-estate/overview) solution at Esri.
 

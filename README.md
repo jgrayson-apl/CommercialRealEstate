@@ -43,6 +43,6 @@ For questions about the demo web application:
 
 > John Grayson | Prototype Specialist | Geo Experience Center\
 > Esri | 380 New York St | Redlands, CA 92373 | USA\
-> T 909 793 2853 x1609 | [jgrayson@esri.com](mailto:jgrayson@esri.com?subject=Commercial%20Real%20Estate&body=Hi%20John,%0A%20%20I%20have%20a%20quesiton%20about%20the%20Commercial%20Real%20Estate%20demo.) | [apl.esri.com](https://apl.esri.com) | [esri.com](https://www.esri.com)
+> T 909 793 2853 x1609 | [jgrayson@esri.com](mailto:jgrayson@esri.com?subject=Commercial%20Real%20Estate%20Demo&body=Hi%20John,%0A%20%20I%20have%20a%20quesiton%20about%20the%20Commercial%20Real%20Estate%20demo.) | [apl.esri.com](https://apl.esri.com) | [esri.com](https://www.esri.com)
 
 

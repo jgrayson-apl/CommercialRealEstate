@@ -2,9 +2,11 @@
 
 ## Using the ArcGIS Platform GeoEnrichment Service for Commercial Real Estate Site Selection
 
+
 ### Demo Web Application
 
 > Check out the demo [here](https://apl.bd.esri.com/CommercialRealEstate/index.html).
+
 
 ### Details
 
@@ -14,6 +16,7 @@ select from. When a site is selected the preview map will zoom to that site to p
 button for the site will start the geoenrichment process for that site. A new panel is added showing details about the site, a map of 
 the site, and various details retrieved from the geoenrichment service. The search area is based on the type of site and varies from 
 simple distances to walk and drive travel times. 
+
 
 ### GeoEnrichment
 
@@ -28,6 +31,8 @@ For example, in the U.S. and Canada, data apportionment relies mostly on census 
 boundaries, the most detailed level of census tabulation available. They contain attributes for the actual count of people and households living in
 the associated block. For most other countries and regions settlement points are used for data apportionment. Settlement points are modeled by Esri
 and provide an estimate of the likelihood of human settlement.
+
+> Developers can see how the GeoEnrichment Service is used in this demo [here](https://github.com/jgrayson-apl/CommercialRealEstate/blob/master/js/GeoenrichmentUtils.js#L70) using the [ArcGIS REST JS](https://developers.arcgis.com/arcgis-rest-js/) api.
 
 > Learn more about [GeoEnrichment](https://www.esri.com/en-us/arcgis/products/arcgis-platform/services/geoenrichment), [Tapestry Segmentation](https://storymaps.arcgis.com/stories/1ff4e014a1b3444b871dc4c3d906d946), and [Real Estate](https://www.esri.com/en-us/industries/real-estate/overview) solution at Esri.
 

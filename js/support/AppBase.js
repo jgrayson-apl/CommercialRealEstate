@@ -15,7 +15,11 @@
  */
 
 import AppParameters from "./AppParameters.js";
+import AdobeAnalyticsUtils from "./AdobeAnalyticsUtils.js";
 
+/**
+ *
+ */
 class AppBase extends AppParameters {
 
   // EVENTED //
@@ -35,6 +39,9 @@ class AppBase extends AppParameters {
    */
   constructor() {
     super();
+
+    // ADOBE ANALYTICS //
+    const analyticsUtils = new AdobeAnalyticsUtils({source: this});
 
     // EVENTED AND WATCHUTILS //
     require(['esri/core/Evented', 'esri/core/watchUtils'], (Evented, watchUtils) => {
@@ -74,9 +81,6 @@ class AppBase extends AppParameters {
 
         // APP INFO //
         this.configureAppInfo();
-
-        // ANALYTICS //
-        this.initializeAnalytics();
 
         resolve();
       });
@@ -247,21 +251,6 @@ class AppBase extends AppParameters {
     appDetailsAction.addEventListener('click', () => {
       appDetailsModal.active = (!appDetailsModal.active);
     });
-
-  }
-
-  /**
-   *
-   */
-  initializeAnalytics() {
-
-    // ANALYTICS //
-    window.dataLayer = {
-      pageType: 'esri-geoxc-apl-demo',
-      pagePath: window.location.pathname,
-      pageTitle: this.title,
-      pageName: this.name
-    };
 
   }
 

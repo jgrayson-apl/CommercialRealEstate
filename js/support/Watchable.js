@@ -14,15 +14,25 @@
  limitations under the License.
  */
 
-//
-// TODO: MOVE LIST OF WATCHES TO SUPPORT MORE THAN ONE WATCH PER KEY
-//
-
+/**
+ *
+ */
 export default class Watchable {
 
-  // WATCHES = MAP OF PROPERTY NAMES AND CHANGE HANDLERS //
-  _watches;
-  get watches() { return this._watches; }
+  /**
+   * INTERNAL MAP OF PROPERTY NAMES AND CHANGE HANDLERS
+   *
+   * @type {Map<string,Function[]>}
+   * @private
+   */
+  _watchesByName;
+
+  /**
+   *  MAP OF PROPERTY NAMES AND CHANGE HANDLERS
+   *
+   * @returns {Map<string, Function[]>}
+   */
+  get watches() { return this._watchesByName; }
 
   /**
    *
@@ -31,14 +41,17 @@ export default class Watchable {
   constructor() {
 
     // PROPERTY NAMES AND HANDLERS //
-    this._watches = new Map();
+    this._watchesByName = new Map();
 
     // PROXY //
     return new Proxy(this, {
       set(target, key, value) {
-        if ((target[key] !== value) && target.watches.has(key)) {
+        if (target[key] !== value) {
+          // SET VALUE //
           target[key] = value;
-          target.watches.get(key)(value);
+          // CALL WATCHES //
+          const watches = target.watches.get(key);
+          watches && watches.forEach(handler => handler(value));
         }
         return Reflect.set(...arguments);
       }
@@ -46,21 +59,26 @@ export default class Watchable {
   }
 
   /**
+   * Start watching a property changes and if already set will call the handler.
    *
-   * @param property {String}
-   * @param handler {Function}
-   * @returns {{remove: Function}}
+   * @param {string} property
+   * @param {Function} handler
    */
   watch(property, handler) {
-    this._watches.set(property, handler);
+
+    // UPDATE PROPERTY HANDLERS //
+    const watches = this._watchesByName.get(property) || [];
+    watches.push(handler);
+    this._watchesByName.set(property, watches);
+
     if (this[property] != null) {
       handler(this[property]);
     }
-    return {
-      remove: () => {
-        this._watches.delete(property);
-      }
-    }
+    /*return {
+     remove: () => {
+     this._watchesByName.delete(property);
+     }
+     }*/
   }
 
 }
